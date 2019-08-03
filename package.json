@@ -1,10 +1,17 @@
 {
-  "name": "Connor-MKIII",
-  "version": "1.0.0",
-  "description": "",
+  "name": "connor-prime",
+  "displayName": "Connor-Prime",
+  "version": "0.0.1",
+  "description": "My primary \"AI\" helper.",
   "scripts": {
     "test": "echo \"No tests yet...\""
   },
+  "author": {
+    "name": "Alcha",
+    "email": "alcha@hasslefree.solutions",
+    "url": "https://hasslefree.solutions"
+  },
+  "license": "MIT",
   "dependencies": {
     "mongoose": "^5.6.8",
     "twitter": "^1.7.1"
