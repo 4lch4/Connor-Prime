@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 module.exports = function (context, myTimer) {
   var timeStamp = new Date().toISOString()
   return new Promise((resolve, reject) => {
-    mongoose.connect('mongodb+srv://Connor:LRX51j0rwuKFAD6m@connor-cluster0-xrys8.gcp.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true })
+    mongoose.connect('mongodb+srv://connor:LRX51j0rwuKFAD6m@connor-cluster0-xrys8.gcp.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true })
     const db = mongoose.connection
     db.on('error', err => reject(err))
     db.once('open', () => {
