@@ -93,3 +93,5 @@ obj
 appsettings.json
 local.settings.json
 \.vscode/
+
+package-lock\.json
