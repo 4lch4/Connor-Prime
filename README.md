@@ -1,7 +1,7 @@
 [![ForTheBadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/fo-shizzle.svg)](https://forthebadge.com)
 
-[![Build Status](https://dev.azure.com/HF-Solutions/Connor/_apis/build/status/Connor?branchName=master)](https://dev.azure.com/HF-Solutions/Connor/_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://dev.azure.com/HF-Solutions/Connor/_apis/build/status/Connor-Prime?branchName=master)](https://dev.azure.com/HF-Solutions/Connor/_build/latest?definitionId=3&branchName=master)
 
 # Connor-Prime
 
