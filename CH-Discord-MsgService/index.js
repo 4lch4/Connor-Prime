@@ -8,7 +8,7 @@ const yBot = new Yuma({
 
 module.exports = async function (context, req) {
   await yBot.connect()
-  yBot.createMessage('325510453877014529', {
+  let msgRes = await yBot.createMessage('325510453877014529', {
     embed: {
       author: 'Connor',
       description: 'Automated Message',
@@ -30,12 +30,12 @@ module.exports = async function (context, req) {
       image:
       { url: 'https://i.ytimg.com/vi/DHqTQzv1jkE/maxresdefault.jpg' }
     }
-  }).then(res => {
-    context.log('Message sent.')
-    context.log(res)
-    context.res({
-      body: 'Message sent.'
-    })
+  })
+
+  context.log('Message sent.')
+  context.log(msgRes)
+  context.res({
+    body: 'Message sent.'
   })
   // context.log('JavaScript HTTP trigger function processed a request.')
 
