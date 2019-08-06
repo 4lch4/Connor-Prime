@@ -1,4 +1,3 @@
-const YConfig = require('./discordConfig.json')
 const Yuma = require('yumabot-core')
 const yBot = new Yuma({
   'token': process.env.YUMA_TOKEN,
