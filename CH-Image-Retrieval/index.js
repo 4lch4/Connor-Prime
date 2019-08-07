@@ -4,13 +4,8 @@ const {
   ContainerURL,
   ServiceURL,
   SharedKeyCredential,
-  StorageURL,
-  uploadStreamToBlockBlob,
-  uploadFileToBlockBlob
+  StorageURL
 } = require('@azure/storage-blob')
-
-const fs = require('fs')
-const path = require('path')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -19,9 +14,15 @@ if (process.env.NODE_ENV !== 'production') {
 const STORAGE_ACCOUNT_NAME = process.env.AZURE_STORAGE_ACCOUNT_NAME
 const ACCOUNT_ACCESS_KEY = process.env.AZURE_STORAGE_ACCOUNT_ACCESS_KEY
 
-const ONE_MEGABYTE = 1024 * 1024
-const FOUR_MEGABYTES = 4 * ONE_MEGABYTE
 const ONE_MINUTE = 60 * 1000
+const containerName = 'image-access'
+
+const credentials = new SharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY)
+const pipeline = StorageURL.newPipeline(credentials)
+const serviceURL = new ServiceURL(`https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`, pipeline)
+
+const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName)
+const aborter = Aborter.timeout(30 * ONE_MINUTE)
 
 async function getBlobNames (aborter, containerURL) {
   let response
@@ -40,28 +41,23 @@ async function getBlobNames (aborter, containerURL) {
 }
 
 module.exports = async function (context, req) {
-  const containerName = 'image-access'
-
-  const credentials = new SharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY)
-  const pipeline = StorageURL.newPipeline(credentials)
-  const serviceURL = new ServiceURL(`https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`, pipeline)
-
-  const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName)
-  const aborter = Aborter.timeout(30 * ONE_MINUTE)
-
-  console.log(`Blobs in "${containerName}" container:`)
-  const blobNames = await getBlobNames(aborter, containerURL)
-
   context.log('JavaScript HTTP trigger function processed a request.')
 
-  if (req.query.name || (req.body && req.body.name)) {
+  if ((req.query.name && req.query.index) || (req.body.name && req.body.index)) {
+    console.log(`Blobs in "${containerName}" container:`)
+    const blobNames = await getBlobNames(aborter, containerURL)
+    for (const name in blobNames) {
+      const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, name)
+      console.log(`blockBlobURL...`)
+      console.log(blockBlobURL)
+    }
     context.res = {
       body: blobNames.join(',')
     }
   } else {
     context.res = {
       status: 400,
-      body: 'Please pass a name on the query string or in the request body'
+      body: 'Please pass a name and image index on the query string or in the request body.'
     }
   }
 }
