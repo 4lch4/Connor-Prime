@@ -95,4 +95,4 @@ local.settings.json
 \.vscode/
 
 package-lock\.json
-pnpm-lock\.json
+pnpm-lock\.yaml
