@@ -18,7 +18,7 @@
     "discord-webhook-ts": "^3.0.3",
     "eris": "^0.10.1",
     "hookcord": "^2.0.2",
-    "mongoose": "^5.6.8",
+    "mongoose": "^6.1.8",
     "twitter": "^1.7.1",
     "yumabot-core": "^1.7.6"
   }
